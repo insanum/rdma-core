@@ -391,6 +391,7 @@ struct verbs_context_ops {
 					  struct ibv_flow *flow);
 	int (*attach_mcast)(struct ibv_qp *qp, const union ibv_gid *gid,
 			    uint16_t lid);
+	int (*attach_mr)(struct ibv_qp *qp, struct ibv_mr *mr);
 	int (*bind_mw)(struct ibv_qp *qp, struct ibv_mw *mw,
 		       struct ibv_mw_bind *mw_bind);
 	int (*close_xrcd)(struct ibv_xrcd *xrcd);
@@ -450,6 +451,7 @@ struct verbs_context_ops {
 	int (*destroy_wq)(struct ibv_wq *wq);
 	int (*detach_mcast)(struct ibv_qp *qp, const union ibv_gid *gid,
 			    uint16_t lid);
+	int (*detach_mr)(struct ibv_qp *qp, struct ibv_mr *mr);
 	int (*dm_export_dmabuf_fd)(struct ibv_dm *dm);
 	int (*export_job)(struct ibv_job *job, int *fd);
 	void (*free_buf)(struct ibv_buf *buf);
