@@ -281,6 +281,9 @@ static int query_sysfs_gid(struct ibv_context *context, uint8_t port_num, int in
  */
 #define V1_TYPE "IB/RoCE v1"
 #define V2_TYPE "RoCE v2"
+#define UET_UDP_TYPE "UET UDP"
+#define UET_IP_TYPE "UET IP"
+#define UET_UFH_TYPE "UET UFH"
 static int query_sysfs_gid_type(struct ibv_context *context, uint8_t port_num,
 				unsigned int index, enum ibv_gid_type_sysfs *type)
 {
@@ -329,6 +332,12 @@ static int query_sysfs_gid_type(struct ibv_context *context, uint8_t port_num,
 			*type = IBV_GID_TYPE_SYSFS_IB_ROCE_V1;
 		} else if (!strcmp(buff, V2_TYPE)) {
 			*type = IBV_GID_TYPE_SYSFS_ROCE_V2;
+		} else if (!strcmp(buff, UET_UDP_TYPE)) {
+			*type = IBV_GID_TYPE_SYSFS_UET_UDP;
+		} else if (!strcmp(buff, UET_IP_TYPE)) {
+			*type = IBV_GID_TYPE_SYSFS_UET_IP;
+		} else if (!strcmp(buff, UET_UFH_TYPE)) {
+			*type = IBV_GID_TYPE_SYSFS_UET_UFH;
 		} else {
 			errno = ENOTSUP;
 			return -1;
@@ -379,6 +388,12 @@ static int query_sysfs_gid_entry(struct ibv_context *context, uint32_t port_num,
 				/* Unspecified link layer is IB by default */
 				entry->gid_type = IBV_GID_TYPE_IB;
 			}
+		} else if (gid_type == IBV_GID_TYPE_SYSFS_UET_UDP) {
+			entry->gid_type = IBV_GID_TYPE_UET_UDP;
+		} else if (gid_type == IBV_GID_TYPE_SYSFS_UET_IP) {
+			entry->gid_type = IBV_GID_TYPE_UET_IP;
+		} else if (gid_type == IBV_GID_TYPE_SYSFS_UET_UFH) {
+			entry->gid_type = IBV_GID_TYPE_UET_UFH;
 		} else {
 			entry->gid_type = IBV_GID_TYPE_ROCE_V2;
 		}
