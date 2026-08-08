@@ -2549,6 +2549,8 @@ struct verbs_context {
 			   unsigned int flags);
 	int (*query_addr)(struct ibv_job *job, unsigned int addr_idx,
 			  struct ibv_ah_attr_ex *ah_attr, unsigned int flags);
+	struct ibv_comp_channel *(*create_comp_channel)(struct ibv_context *context);
+	int (*destroy_comp_channel)(struct ibv_comp_channel *channel);
 	void (*free_buf)(struct ibv_buf *buf);
 	void *(*alloc_buf)(struct ibv_pd *pd, size_t size,
 			   struct ibv_buf **buf);

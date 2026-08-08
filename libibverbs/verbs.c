@@ -843,6 +843,11 @@ struct ibv_comp_channel *ibv_create_comp_channel(struct ibv_context *context)
 	struct ib_uverbs_create_comp_channel_resp resp = {};
 	struct ibv_comp_channel            *channel;
 
+	/* if the provider doesn't support this, fall back to kernel */
+	channel = get_ops(context)->create_comp_channel(context);
+	if (channel || (errno != EOPNOTSUPP))
+		return channel;
+
 	channel = malloc(sizeof *channel);
 	if (!channel)
 		return NULL;
@@ -867,6 +872,12 @@ int ibv_destroy_comp_channel(struct ibv_comp_channel *channel)
 	int ret;
 
 	context = channel->context;
+
+	/* if the provider doesn't support this, fall back to kernel */
+	ret = get_ops(context)->destroy_comp_channel(channel);
+	if (ret != EOPNOTSUPP)
+		return ret;
+
 	pthread_mutex_lock(&context->mutex);
 
 	if (channel->refcnt) {
