@@ -44,6 +44,9 @@ uint64_t     	       max_dm_size;		   /* Max Device Memory size (in bytes) avail
 struct ibv_pci_atomic_caps atomic_caps;            /* PCI atomic operations capabilities, use enum ibv_pci_atomic_op_size */
 uint32_t               xrc_odp_caps;               /* Mask with enum ibv_odp_transport_cap_bits to know which operations are supported. */
 uint32_t	       phys_port_cnt_ex		   /* Extended number of physical port count, allows exposing more than 255 ports device */
+uint32_t	       max_job_ids;		   /* Maximum number of jobs supported */
+uint32_t	       max_job_keys;		   /* Maximum number of job keys supported */
+uint32_t	       max_addr_entries;	   /* Maximum number of entries in a job address table */
 .in -8
 };
 
@@ -170,6 +173,37 @@ IBV_PARENT_DOMAIN_INIT_ATTR_ALLOW_CC_UNPROTECTED_ALLOC, allocate buffers
 through ibv_alloc_buf(), and register them with ibv_reg_buf_mr() (or
 ibv_reg_mr_ex() with IBV_REG_MR_MASK_BUF).
 
+.TP 7
+IBV_DEVICE_RU
+
+Indicates the device supports the Reliable Unconnected verbs: jobs, job keys,
+the job address table, extended address handles, queue pair semantics and the
+IBV_QPT_RU queue pair type. See
+.BR ibv_uet (7).
+
+The max_job_ids, max_job_keys and max_addr_entries members report the
+corresponding limits.
+
+.TP 7
+IBV_DEVICE_IMM64
+
+Indicates the device supports 64-bit immediate data, sent with
+ibv_wr_send_imm64() or the 64-bit RDMA write variants and read from a work
+completion with ibv_wc_read_imm64_data().
+
+.TP 7
+IBV_DEVICE_KEY64
+
+Indicates the device uses 64-bit memory keys, carried in the lkey64 and
+rkey64 members of struct ibv_mr and struct ibv_sge.
+
+.TP 7
+IBV_DEVICE_USER_RKEY
+
+Indicates the device supports registering a memory region with an
+application-assigned RKey, requested with IBV_REG_MR_MASK_RKEY. See
+.BR ibv_reg_mr (3).
+
 .SH "RETURN VALUE"
 .B ibv_query_device_ex()
 returns 0 on success, or the value of errno on failure (which indicates the failure reason).
@@ -185,7 +219,8 @@ in use by other users/processes.
 .BR ibv_open_device (3),
 .BR ibv_query_port (3),
 .BR ibv_query_pkey (3),
-.BR ibv_query_gid (3)
+.BR ibv_query_gid (3),
+.BR ibv_uet (7)
 .SH "AUTHORS"
 .TP
 Majd Dibbiny <majd@mellanox.com>
