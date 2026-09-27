@@ -105,7 +105,11 @@ static int ibv_icmd_create_qp(struct ibv_context *context,
 	case IBV_QPT_UC:
 	case IBV_QPT_RAW_PACKET:
 	case IBV_QPT_XRC_SEND:
+	case IBV_QPT_RU:
 	case IBV_QPT_DRIVER:
+		if (attr_ex->qp_type == IBV_QPT_RU)
+			fallback_require_ioctl(cmdb);
+
 		if (!(attr_ex->comp_mask & IBV_QP_INIT_ATTR_PD)) {
 			errno = EINVAL;
 			return errno;
@@ -439,7 +443,10 @@ int ibv_cmd_create_qp_ex2(struct ibv_context *context,
 			     IBV_QP_INIT_ATTR_MAX_TSO_HEADER |
 			     IBV_QP_INIT_ATTR_IND_TABLE |
 			     IBV_QP_INIT_ATTR_RX_HASH |
-			     IBV_QP_INIT_ATTR_SEND_OPS_FLAGS)) {
+			     IBV_QP_INIT_ATTR_SEND_OPS_FLAGS |
+			     IBV_QP_INIT_ATTR_QP_SEMANTICS |
+			     IBV_QP_INIT_ATTR_SRC_ID |
+			     IBV_QP_INIT_ATTR_JKEY)) {
 		errno = EINVAL;
 		return errno;
 	}
