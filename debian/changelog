@@ -1,8 +1,108 @@
-rdma-core (65.0-1) unstable; urgency=medium
+rdma-core (66.0-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Jason Gunthorpe <jgg@obsidianresearch.com>  Tue, 21 Jan 2025 13:44:36 +0100
+ -- Jason Gunthorpe <jgg@obsidianresearch.com>  Wed, 16 Sep 2026 11:44:15 +0200
+
+rdma-core (65.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Add new symbols to libraries and update private libibverbs1 symbols
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Tue, 15 Sep 2026 11:27:05 +0200
+
+rdma-core (64.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Drop patches applied upstream
+  * Update private libibverbs1 symbols
+  * Switch to debhelper 14
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Mon, 31 Aug 2026 11:52:10 +0200
+
+rdma-core (63.0-2) unstable; urgency=medium
+
+  [ Andreas Tille ]
+  * Migrate packaging repository to Debian team on Salsa
+  * d/watch: version=5
+
+  [ Benjamin Drung ]
+  * librdmacm/preload.c: fix duplicate LFS symbols definitions
+    (Closes: #1139198, #1140611)
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Fri, 03 Jul 2026 17:26:47 +0200
+
+rdma-core (63.0-1) unstable; urgency=medium
+
+  [ Benjamin Drung ]
+  * New upstream release.
+  * Bump Standards-Version to 4.7.4
+
+  [ Luca Boccassi ]
+  * install and use sysusers.d config file
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Wed, 06 May 2026 17:26:34 +0200
+
+rdma-core (61.0-2) unstable; urgency=medium
+
+  * Exclude ionic on architectures without coherent DMA
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Wed, 14 Jan 2026 15:47:03 +0100
+
+rdma-core (61.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * drop patches applied upstream
+  * Add libionic1 to ibverbs-providers lintian-overrides
+  * Add ${python3:Depends} to rdma-core for rdma_topo
+  * Replace old FSF postal address by URL
+  * Drop Rules-Requires-Root
+  * Drop explicit priority optional
+  * Bump Standards-Version to 4.7.3
+  * Use dh_auto_build and dh_auto_install to set correct umask
+  * Fix FTCBFS: (Closes: #1123693)
+    + Multiarchify Python Build-Depends.
+    + Request a native cython3.
+    + Use the host's sysconfigdata.
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Wed, 14 Jan 2026 13:17:21 +0100
+
+rdma-core (56.1-1) unstable; urgency=medium
+
+  * New upstream bug-fix release
+  * Drop patches applied upstream
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Mon, 14 Apr 2025 12:41:06 +0200
+
+rdma-core (56.0-4) unstable; urgency=medium
+
+  * Cherry-pick upstream patch for providers/mana: improve synchronization
+    on the shadow queue (LP: #2105922)
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Wed, 02 Apr 2025 12:55:04 +0200
+
+rdma-core (56.0-3) unstable; urgency=medium
+
+  * libibumad: Fix iteration index for switches (Closes: #1100343)
+  * Bump Standards-Version to 4.7.2
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Thu, 20 Mar 2025 11:33:51 +0100
+
+rdma-core (56.0-2) unstable; urgency=medium
+
+  * Cherry-pick upstream patches:
+    - providers/mana: fixes + error CQEs
+    - providers/mana: Add dma-buf support
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Mon, 24 Feb 2025 18:17:24 +0100
+
+rdma-core (56.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update library symbols
+  * Update year in copyright
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Thu, 06 Feb 2025 20:12:10 +0100
 
 rdma-core (55.0-1) unstable; urgency=medium
 
